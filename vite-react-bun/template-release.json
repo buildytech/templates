@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "vite-react-bun",
+  "version": "1.0.0",
+  "runnerContract": 1,
+  "runtime": "bun",
+  "ui8kitDigest": "836eda5d1dedf9288711a6a2ecebaf9032a0351637bcb84c2e7aff69d2144e9d",
+  "sourceDigestAlgorithm": "sha256-path-null-content-null-v1"
+}

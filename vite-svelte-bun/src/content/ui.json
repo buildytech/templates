@@ -1,0 +1,7 @@
+{
+  "locale": "en",
+  "messages": {
+    "theme.region": "Display settings",
+    "theme.toggle": "Dark mode"
+  }
+}

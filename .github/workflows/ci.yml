@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify (${{ matrix.template }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        template: [vite-react-bun, vite-svelte-bun]
+    defaults:
+      run:
+        working-directory: ${{ matrix.template }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: ${{ matrix.template }}/.bun-version
+      - run: bun install --frozen-lockfile
+      - run: bun run verify
+      - name: Working tree stays clean (no generated drift)
+        run: git diff --exit-code -- .

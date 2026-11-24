@@ -1,0 +1,12 @@
+{
+  "description": "Production-oriented React 19 and TypeScript starter using Bun for dependency installation and execution with Vite, Tailwind CSS, and ui8kit.",
+  "homepage": "https://github.com/buildy-ui",
+  "topics": [
+    "template",
+    "typescript",
+    "react",
+    "vite"
+  ],
+  "license": "MIT",
+  "isTemplate": true
+}
