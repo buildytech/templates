@@ -1,0 +1,60 @@
+{
+  "name": "buildy-starter-react",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "bun": ">=1.3.3"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "tsc --noEmit",
+    "check:ui8kit": "ui8kit check",
+    "rules:check": "bun scripts/rules-check.ts",
+    "lint:px": "bun scripts/ui8px-gate.ts",
+    "verify": "bun run check:ui8kit && bun run rules:check && bun run lint:px && bun run check && bun run build"
+  },
+  "ui8kit": {
+    "runtime": "react",
+    "kit": [
+      "src/kit",
+      "src/compose",
+      "src/icons",
+      "src/utils",
+      "src/presets",
+      "src/components"
+    ],
+    "composition": [
+      "src/blocks",
+      "src/sections",
+      "src/layouts",
+      "src/App.tsx"
+    ],
+    "blockRoot": [
+      "src/sections",
+      "src/layouts",
+      "src/App.tsx"
+    ]
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide": "^1.81.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "@types/bun": "^1.4.5",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "tailwindcss": "^4.3.5",
+    "typescript": "~5.9.3",
+    "ui8kit": "3.5.0",
+    "ui8px": "0.3.0",
+    "vite": "^8.4.0"
+  }
+}

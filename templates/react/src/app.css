@@ -1,0 +1,21 @@
+/* The app's stylesheet: the kit (theme tokens, kit CSS; generated, never edited) and the brand layer of this
+   project: the local Istok Web font as the sans token and the colour scheme of the dark mode. */
+@import "./styles/index.css";
+@import "./assets/fonts/istok-web.css";
+
+@theme {
+  --font-sans: "Istok Web", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  :target {
+    scroll-margin-top: calc(var(--spacing) * 20);
+  }
+}

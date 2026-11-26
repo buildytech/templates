@@ -1,0 +1,5 @@
+{
+  "max": 0,
+  "blocking": ["UI8PX001", "UI8PX003", "UI8PX005", "GRID"],
+  "why": "8+4 for the blocks and layouts layers: registry blocks (src/blocks), project blocks (src/sections), the page frame (src/layouts)"
+}

@@ -1,7 +1,0 @@
-{
-  "schemaVersion": 1,
-  "id": "vite-svelte-bun",
-  "version": "1.0.0",
-  "runnerContract": 1,
-  "runtime": "bun"
-}

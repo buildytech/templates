@@ -1,7 +1,0 @@
-{
-  "description": "Svelte 5 landing page starter on Vite 8, Tailwind CSS 4 and Bun with UI8Kit primitives, registry blocks and the UI8Kit rules (page contract, ui8px 8+4 gate).",
-  "homepage": "https://github.com/buildy-ui",
-  "topics": ["template", "typescript", "svelte", "vite", "ui8kit"],
-  "license": "MIT",
-  "isTemplate": true
-}

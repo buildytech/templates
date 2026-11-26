@@ -1,0 +1,18 @@
+{
+  "brand": "Starter",
+  "homeHref": "#main-content",
+  "nav": [
+    { "id": "features", "label": "Features", "href": "#features" },
+    { "id": "start", "label": "Get started", "href": "#get-started" },
+    { "id": "contact", "label": "Contact", "href": "#contact" }
+  ],
+  "footer": {
+    "description": "A clean starting point: UI8Kit primitives, local fonts, dark mode and a mobile menu.",
+    "links": [
+      { "id": "features", "label": "Features", "href": "#features" },
+      { "id": "start", "label": "Get started", "href": "#get-started" },
+      { "id": "top", "label": "Back to top", "href": "#main-content" }
+    ],
+    "copyright": "© 2026 Starter. All rights reserved."
+  }
+}

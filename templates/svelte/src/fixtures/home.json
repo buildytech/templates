@@ -1,0 +1,71 @@
+{
+  "seo": {
+    "title": "Starter: build your site from here",
+    "description": "A mobile-first starter with UI8Kit primitives, data from JSON fixtures, dark mode and a mobile menu."
+  },
+  "hero": {
+    "id": "hero",
+    "badge": "New project",
+    "title": "Build your site from a clean start",
+    "description": "Every word on this page comes from JSON fixtures and the dictionary. Replace them, add blocks, keep the rules green.",
+    "actionLabel": "Get started",
+    "actionHref": "#get-started",
+    "secondaryActionLabel": "See features",
+    "secondaryActionHref": "#features",
+    "image": "/hero-light.svg",
+    "imageDark": "/hero-dark.svg",
+    "imageAlt": "A sketch of a site page: a header, a hero and three cards"
+  },
+  "features": {
+    "id": "features",
+    "title": "What is inside",
+    "description": "A small set of parts that every site needs, wired the UI8Kit way.",
+    "items": [
+      {
+        "id": "primitives",
+        "icon": "blocks",
+        "title": "UI8Kit primitives",
+        "description": "Installed by the ui8kit CLI and never edited by hand. Compose them with the tag prop."
+      },
+      {
+        "id": "fixtures",
+        "icon": "file-json",
+        "title": "Data in JSON",
+        "description": "Page content lives in src/fixtures, interface words in src/i18n. No backend, no API calls."
+      },
+      {
+        "id": "mobile",
+        "icon": "smartphone",
+        "title": "Mobile first",
+        "description": "A responsive layout with an accessible sheet menu on small screens."
+      },
+      {
+        "id": "dark",
+        "icon": "moon",
+        "title": "Dark mode",
+        "description": "The dark class on html, saved between visits, the system choice by default."
+      },
+      {
+        "id": "fonts",
+        "icon": "type",
+        "title": "Local fonts",
+        "description": "Istok Web ships with the project as woff2 files under the SIL Open Font License."
+      },
+      {
+        "id": "rules",
+        "icon": "shield-check",
+        "title": "Rules included",
+        "description": "Cursor rules from ui8kit/contract and checks for raw tags, literal text and the 8+4 grid."
+      }
+    ]
+  },
+  "cta": {
+    "id": "get-started",
+    "title": "Start with your own content",
+    "description": "Edit src/fixtures/home.json, run bun run dev and watch the page change.",
+    "actionLabel": "Read the rules",
+    "actionHref": "#features",
+    "secondaryActionLabel": "Contact",
+    "secondaryActionHref": "#contact"
+  }
+}

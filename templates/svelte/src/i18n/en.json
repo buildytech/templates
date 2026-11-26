@@ -1,0 +1,14 @@
+{
+  "locale": "en",
+  "messages": {
+    "a11y.skip": "Skip to content",
+    "nav.main": "Main",
+    "nav.mobile": "Mobile",
+    "menu.open": "Open menu",
+    "menu.close": "Close menu",
+    "menu.title": "Menu",
+    "menu.description": "Site navigation",
+    "theme.toggle": "Dark mode",
+    "footer.label": "Footer"
+  }
+}

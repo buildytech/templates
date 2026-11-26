@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "templates": [
+    {
+      "id": "svelte",
+      "dir": "templates/svelte",
+      "name": "Svelte starter",
+      "stack": "Vite 8 · Svelte 5 · Tailwind 4 · UI8Kit · Bun",
+      "description": "Mobile-first site: header, mobile Sheet menu, dark mode, hero, features, CTA, footer. JSON fixtures, no backend.",
+      "runner": "vite-bun",
+      "aliases": ["vite-svelte-bun"]
+    },
+    {
+      "id": "react",
+      "dir": "templates/react",
+      "name": "React starter",
+      "stack": "Vite 8 · React 19 · Tailwind 4 · UI8Kit · Bun",
+      "description": "Mobile-first site: header, mobile Sheet menu, dark mode, hero, features, CTA, footer. JSON fixtures, no backend.",
+      "runner": "vite-bun",
+      "aliases": ["vite-react-bun"]
+    },
+    {
+      "id": "empty",
+      "dir": "templates/empty",
+      "name": "Empty",
+      "stack": "Vite 8 · Bun",
+      "description": "A blank page: index.html and an empty entry, nothing else.",
+      "runner": "vite-bun",
+      "aliases": []
+    }
+  ]
+}

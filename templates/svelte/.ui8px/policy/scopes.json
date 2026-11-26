@@ -1,0 +1,13 @@
+{
+  "defaultScope": "layout",
+  "scopes": [
+    {
+      "name": "layout",
+      "files": [
+        ".ui8px/extract/**"
+      ],
+      "spacing": "layout"
+    }
+  ],
+  "$comment": "lint:px mirrors the class sets of src/blocks, src/sections and src/layouts into .ui8px/extract (layout scope: 8px steps). Controls (buttons, inputs, badges) live in the kit (src/compose recipes), which is not scanned."
+}
