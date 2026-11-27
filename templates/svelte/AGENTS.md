@@ -23,7 +23,7 @@ server state. Data is plain JSON, words are a dictionary. Keep it that way unles
 | `src/fixtures/*.json` | page content: brand, navigation, hero, features, call to action, footer | yes |
 | `src/i18n/en.json` | ui dictionary (`{ locale, messages }`) | yes |
 | `src/app/content.ts` | typed access to fixtures and the dictionary | yes |
-| `src/app/behaviors.ts` | dark mode toggle and the mobile Sheet (native `<dialog>`), framework-free | yes |
+| `src/app/theme.ts`, `src/app/modal.ts` | dark mode storage and the native `<dialog>` modal, framework-free; the state lives in `src/layouts/site-header` and reaches ARIA only through Button `pressed` / `expanded` | yes |
 | `src/app/icons.ts` | the Lucide glyphs the site uses (add one here before using its name) | yes |
 | `src/app.css` | brand layer: Istok Web as the sans font, dark colour scheme | yes |
 | `src/layouts` | page frame: `site-header` (nav, toggle, Sheet), `page-main` | yes, 8+4 |
@@ -43,10 +43,19 @@ bun run dev        # http://127.0.0.1:5173
 bun run verify     # ui8kit check, rules:check, lint:px (ui8px 8+4, max 0), svelte-check, build
 ```
 
-`rules:check` (scripts/rules-check.ts): bare tags, raw HTML, inline style, Block root, literal text, Cyrillic in code.
+`rules:check` (scripts/rules-check.ts): bare tags, raw HTML, inline style, Block root, literal text, Cyrillic in code,
+reactive ARIA in markup and imperative ARIA (`setAttribute("aria-…")`, `data-ui8kit*`) in any script outside the kit zone.
 `lint:px` (scripts/ui8px-gate.ts): mirrors the class sets of `src/blocks`, `src/sections`, `src/layouts` into
 `.ui8px/extract` and runs `ui8px lint` against `.ui8px/policy` (`.ui8px/gate.json`: max 0). New code keeps a zero
 baseline.
+
+## Interactive state
+
+State (dark mode, the open menu) is framework state (`$state` / `useState` in `src/layouts/site-header`) and reaches
+ARIA only through primitive props: `Button pressed` (aria-pressed), `Button expanded` (aria-expanded), the Sheet's
+`onclose`. Scripts never write `aria-*` or `data-ui8kit*` on the DOM (contract rule 02). The kit's `ThemeToggle`,
+`SheetTrigger` and `SheetClose` composites print static ARIA for script-driven runtimes and take no state prop, so
+this starter uses `Button` + `LucideIcon` instead.
 
 ## Host contract
 

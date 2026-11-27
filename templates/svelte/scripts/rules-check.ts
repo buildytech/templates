@@ -4,7 +4,10 @@
 //  - raw-html / dynamic-tag: no {@html}, dangerouslySetInnerHTML, <svelte:element>, <svelte:component>;
 //  - block-root (blockRoot dirs): the file opens on <Block>, at most one <Block>, never inside a loop;
 //  - literal-text (hand-written files): no text nodes with letters, no literal text props (title, label, alt…);
-//  - no inline style attribute; no Cyrillic in code (words live in src/fixtures and src/i18n).
+//  - no inline style attribute; no Cyrillic in code (words live in src/fixtures and src/i18n);
+//  - reactive-aria (rule 02): an aria-* state in markup is static (state goes through a primitive prop, e.g. Button
+//    `pressed` / `expanded`), and composition never writes data-ui8kit* by hand;
+//  - imperative-aria (rule 02, every src file outside the kit zone): no script sets aria-* or data-ui8kit* on the DOM.
 // Generated files ("Code generated … DO NOT EDIT") are checked for tags, raw HTML and style only.
 import { readdirSync, readFileSync, statSync } from "node:fs"
 import { join } from "node:path"
@@ -12,7 +15,9 @@ import { join } from "node:path"
 const pkg = JSON.parse(readFileSync("package.json", "utf8"))
 const zone: string[] = pkg.ui8kit.composition
 const blockRoot: string[] = pkg.ui8kit.blockRoot
+const kitZone: string[] = pkg.ui8kit.kit
 const EXT = /\.(svelte|tsx)$/
+const ARIA_STATE = "pressed|expanded|checked|selected|current|disabled|hidden|busy|invalid|modal|readonly|required|grabbed|valuenow|valuetext"
 
 function files(p: string): string[] {
   if (EXT.test(p)) return [p]
@@ -42,6 +47,8 @@ for (const file of zone.flatMap(files)) {
   for (const m of markup.matchAll(/<([a-z][a-z0-9-]*)[\s/>]/g)) errors.push(`${at(m.index!)} raw-native-tag <${m[1]}>`)
   for (const m of markup.matchAll(/\{@html|dangerouslySetInnerHTML|<svelte:element|<svelte:component/g)) errors.push(`${at(m.index!)} raw-html/dynamic-tag ${m[0]}`)
   for (const m of markup.matchAll(/\sstyle=/g)) errors.push(`${at(m.index!)} inline style`)
+  for (const m of markup.matchAll(new RegExp(`\\saria-(${ARIA_STATE})=\\{`, "g"))) errors.push(`${at(m.index!)} reactive-aria aria-${m[1]}={…} (use the primitive prop)`)
+  for (const m of markup.matchAll(/\sdata-ui8kit[\w-]*=/g)) errors.push(`${at(m.index!)} reactive-aria data-ui8kit written by hand`)
   if (/[\u0400-\u04FF]/.test(src)) errors.push(`${file} Cyrillic in code (move words to src/fixtures or src/i18n)`)
   if (/Code generated .*DO NOT EDIT/.test(src.slice(0, 300))) continue
   if (blockRoot.some((d) => file === d || file.startsWith(d + "/"))) {
@@ -59,9 +66,25 @@ for (const file of zone.flatMap(files)) {
   for (const m of markup.matchAll(/>([^<>{}]*[A-Za-z\u00C0-\u024F\u0400-\u04FF][^<>{}]*)</g)) errors.push(`${at(m.index!)} literal-text "${m[1].trim()}"`)
   for (const m of markup.matchAll(/\s(title|label|placeholder|alt|aria-label|aria-description)="([^"{}]*[A-Za-z][^"{}]*)"/g)) errors.push(`${at(m.index!)} literal-text ${m[1]}="${m[2]}"`)
 }
+// Scripts outside the kit zone: state reaches ARIA only through primitive props, never through the DOM.
+const SCRIPT = /\.(svelte|tsx?|jsx?)$/
+function scripts(p: string): string[] {
+  if (kitZone.some((d) => p === d || p.startsWith(d + "/"))) return []
+  try {
+    if (!statSync(p).isDirectory()) return SCRIPT.test(p) ? [p] : []
+    return readdirSync(p).flatMap((f) => scripts(join(p, f)))
+  } catch {
+    return []
+  }
+}
+const IMPERATIVE = /(set|remove|toggle)Attribute\(\s*["'`](aria-|data-ui8kit)|\.aria[A-Z]\w*\s*=[^=]/g
+for (const file of scripts("src")) {
+  const src = readFileSync(file, "utf8")
+  for (const m of src.matchAll(IMPERATIVE)) errors.push(`${file}:${src.slice(0, m.index).split("\n").length} imperative-aria ${m[0].trim()}`)
+}
 if (errors.length) {
   console.error(errors.join("\n"))
   console.error(`rules:check: ${errors.length} finding(s); new code has a zero baseline`)
   process.exit(1)
 }
-console.log(`rules:check: composition zone clean (${zone.join(", ")})`)
+console.log(`rules:check: composition zone clean (${zone.join(", ")}); no imperative ARIA in src outside the kit zone`)

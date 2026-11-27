@@ -35,11 +35,14 @@ for (const file of SOURCES.flatMap(files)) {
   const found = new Set<string>()
   for (const m of src.matchAll(/\b(?:class|className)="([^"{}]*)"/g)) found.add(m[1])
   for (const m of src.matchAll(/"([^"\n]{2,})"/g)) {
-    // Skip values of other attributes (id, data-slot, controls…) and string concatenations (`id + "-title"`).
+    // Skip values of other attributes (id, data-slot, controls…), arguments of calls other than the class helpers
+    // (`openModal("mobile-menu")`) and string concatenations (`id + "-title"`).
     const before = src.slice(Math.max(0, m.index! - 40), m.index!)
     const after = src.slice(m.index! + m[0].length, m.index! + m[0].length + 3)
     const attr = before.match(/([\w:-]+)=\{?$/)
     if (attr && attr[1] !== "class" && attr[1] !== "className") continue
+    const call = before.match(/([\w$.]+)\(\s*$/)
+    if (call && !/^(cn|clsx|cx|rc|tv|cva)$/.test(call[1])) continue
     if (/\+\s*$/.test(before) || /^\s*\+/.test(after)) continue
     if (looksLikeClasses(m[1])) found.add(m[1])
   }
