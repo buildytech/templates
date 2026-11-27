@@ -10,10 +10,10 @@ the default). The hosts copy a folder as the first commit of a new project:
 | --- | --- | --- |
 | [`svelte`](templates/svelte) (default) | Vite 8, Svelte 5, Tailwind 4, UI8Kit, Bun | mobile-first site: header, mobile Sheet menu, dark mode, hero, features, CTA, footer; JSON fixtures; Istok Web; ui8kit/contract rules |
 | [`react`](templates/react) | Vite 8, React 19, Tailwind 4, UI8Kit, Bun | the same site with the same DOM and ARIA |
-| [`empty`](templates/empty) | Vite 8, Bun | a blank page, nothing else |
+| [`empty`](templates/empty) | Blank workspace | no project files (only `.gitkeep` in this repo so git keeps the folder); hosts create a git repo with an empty first commit. Import a Svelte or React ZIP, or add files |
 
 ```bash
-cd templates/svelte   # or react, empty
+cd templates/svelte   # or react
 bun install --frozen-lockfile
 bun run verify
 ```
@@ -26,7 +26,9 @@ inline style or literal text; Block root), `lint:px` (ui8px 8+4 gate, max 0), ty
 1. `templates/<id>/` with `package.json` (`verify`, `engines.bun`), `bun.lock` (format v1), `.bun-version`,
    `AGENTS.md`, `LICENSE`, `index.html`, `vite.config.ts` (dev server on 127.0.0.1, HMR port from env).
 2. An entry in `templates.json` (`runner: "vite-bun"`); `bun scripts/check-manifest.ts`.
-3. CI picks it up from the manifest. The host gets it with the next submodule pin.
+3. CI picks it up from the manifest (`--matrix` lists only templates with a runner that can `verify`). The host gets it with the next submodule pin.
+
+The `empty` template is the exception: `runner: "none"`, no project files. The folder keeps only `.gitkeep` so git tracks it; hosts skip that file and make an empty first commit. Install and the dev server do not run until the project has a Svelte or React app (ZIP import or files added).
 
 See [AGENTS.md](AGENTS.md), [ADR 0001](docs/adr/0001-templates-repository.md) and
 [ADR 0002](docs/adr/0002-manifest-and-starters.md).

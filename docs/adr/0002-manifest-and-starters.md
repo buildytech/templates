@@ -15,7 +15,7 @@ new one needed a Go change in the host (an embed line and a profile).
   is the host's run profile (install, dev, build argv). A template with a known runner needs no host code.
 - The set: `svelte` (default) and `react`, the same mobile-first site (header, mobile Sheet menu, dark mode, hero,
   features, CTA, footer) from UI8Kit primitives and registry blocks installed with `ui8kit@3`, data in JSON fixtures, no
-  backend; the ui8kit/contract rules copied verbatim; Istok Web shipped locally; and `empty`, a blank Vite page.
+  backend; the ui8kit/contract rules copied verbatim; Istok Web shipped locally; and `empty`, later a blank Vite page (since ADR 0003: a workspace with no project files).
 - `vite-svelte-bun` and `vite-react-bun` are aliases of `svelte` and `react`, so projects made from them keep their
   install and preview profile. Their files stay in the git history.
 
