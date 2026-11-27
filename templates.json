@@ -24,11 +24,20 @@
       ]
     },
     {
+      "id": "templ",
+      "dir": "templates/templ",
+      "name": "Go templ starter",
+      "stack": "Go 1.27 \u00b7 templ \u00b7 PocketBase \u00b7 Tailwind 4 \u00b7 UI8Kit",
+      "description": "fastygo/starter: a privacy-by-design site (blog, corporate or shop preset) with server-rendered UI8Kit blocks, a cabinet and an admin UI.",
+      "runner": "go-templ",
+      "aliases": []
+    },
+    {
       "id": "empty",
       "dir": "templates/empty",
       "name": "Empty",
       "stack": "Blank workspace",
-      "description": "A project with no files. Import a ZIP (Svelte or React) or start from scratch.",
+      "description": "A project with no files. Import a ZIP (Svelte, React or Go templ) or start from scratch.",
       "runner": "none",
       "aliases": []
     }

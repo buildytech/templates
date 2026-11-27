@@ -55,3 +55,34 @@ jobs:
       - run: bun run verify
       - name: Working tree stays clean (no generated drift)
         run: git diff --exit-code -- .
+
+  templ:
+    name: templ (layer over empty)
+    needs: manifest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - name: layer.json matches the pinned starter commit
+        run: bun scripts/templ-layer.ts --check "$RUNNER_TEMP/templ"
+      - name: Go (the toolchain layer.json names)
+        run: |
+          v="$(jq -r .go templates/templ/layer.json)"
+          curl -fsSL -o "$RUNNER_TEMP/go.tgz" "https://dl.google.com/go/$v.linux-amd64.tar.gz"
+          tar -xzf "$RUNNER_TEMP/go.tgz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/go/bin" >> "$GITHUB_PATH"
+      - name: vet, test, build (GOTOOLCHAIN=local, -mod=readonly, as the host runs it)
+        working-directory: ${{ runner.temp }}/templ
+        env:
+          GOTOOLCHAIN: local
+          GOFLAGS: -mod=readonly
+          CGO_ENABLED: "0"
+        run: |
+          go version
+          go mod download
+          go vet ./...
+          go test ./...
+          go build -o "$RUNNER_TEMP/site" ./cmd/site

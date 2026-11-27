@@ -11,6 +11,8 @@
   backend, no BFF, no API calls; content in `src/fixtures/*.json`, words in `src/i18n/*.json`.
 - Primitives and registry blocks change only through `bunx ui8kit add` (never by hand); `ui8kit check` stays green.
 - Keep the dev server on `127.0.0.1` and the HMR client port overridable by env (`HMR_CLIENT_PORT`, `HMR_PROTOCOL`).
+- `templ` (runner `go-templ`) is a layer over `empty` (ADR 0004): `layer.json` pins fastygo/starter by commit and
+  SHA-256 per file; never copy the starter in (a nested `go.mod` cannot be embedded); `bun scripts/templ-layer.ts`.
 - Never ship agent tool config (`.cursor/hooks.json`, `sandbox.json`, `mcp.json`).
 - Every change ends with `bun run verify` green in each touched template and a clean `git diff` (CI checks both).
 - Commits go to `main` (no PRs, no force pushes). A new template: a folder, an entry in `templates.json`, a line in
